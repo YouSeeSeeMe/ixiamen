@@ -47,52 +47,32 @@
 	</div>
 	<!-- uni 的 SDK -->
 	<!-- <script type="text/javascript" src="./u.js"></script> -->
-	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
-	<script type="text/javascript" src="https://unpkg.com/@dcloudio/uni-webview-js@0.0.1/index.js"></script>
+	<script type="text/javascript" src="./jweixin.js"></script>
+	<script type="text/javascript" src="./u.js"></script>
 	<script type="text/javascript">
 		document.addEventListener('UniAppJSBridgeReady', function () {
-			document.querySelector('.btn-list').addEventListener('click', function (evt) {
-				var target = evt.target;
-				if (target.tagName === 'BUTTON') {
-					var action = target.getAttribute('data-action');
-					console.log(action)
-					switch (action) {
-						case 'switchTab':
-							uni.switchTab({
-								url: '/pages/index'
-							});
-							break;
-						case 'reLaunch':
-							uni.reLaunch({
-								url: '/pages/tabBar/API/API'
-							});
-							break;
-						case 'navigateBack':
-							uni.navigateBack({
-								delta: 1
-							});
-							break;
-						default:
-							uni[action]({
-								url: '/pages/component/button/button'
-							});
-							break;
-					}
-				}
+			uni.getEnv(function (res) {
+				console.log('当前环境：' + JSON.stringify(res));
 			});
-			document.querySelector("#postMessage").addEventListener('click', function () {
-				var code = getQueryVariable("code");
-				console.log(code)
-				if (code) {
-					uni.postMessage({
-						data: {
-							code: code
-						}
-					});
-				}
 
-			})
+			var code = getQueryVariable("code");
+			console.log(code)
+			if (code) {
+				uni.postMessage({
+					data: {
+						code: code
+					}
+				});
+				setTimeout(function () {
+					uni.switchTab({
+						url: '/pages/index'
+					});
+				}, 10)
+			}
 		});
+
+
+
 		function getQueryVariable(variable) {
 			var query = window.location.search.substring(1);
 			var vars = query.split("&");
