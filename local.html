@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>本地网页</title>
+	<title>本地网页1</title>
 	<style type="text/css">
 		.btn {
 			display: block;
@@ -79,6 +79,7 @@
 			});
 			document.querySelector("#postMessage").addEventListener('click', function () {
 				var code = dgetQueryVariable("code");
+				console.log(code)
 				if (code) {
 					uni.postMessage({
 						data: {
